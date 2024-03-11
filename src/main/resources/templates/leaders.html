@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"  xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <title>Leaders Meeting</title>
+    <!-- CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" th:href="@{/css/custom.css}">
+</head>
+<body>
+
+<!-- Nav Bar -->
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="/">Lisi's Library</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarNav">
+        <div class="navbar-nav-container">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item" sec:authorize="hasRole('MANAGER')">
+                    <a class="nav-link" th:href="@{/leaders}">Leadership Meeting</a>
+                </li>
+                <li class="nav-item" sec:authorize="hasRole('ADMIN')">
+                    <a class="nav-link" th:href="@{/books}">Admin Panel</a>
+                </li>
+            </ul>
+            <div class="logout-button-container">
+                <form action="#" th:action="@{/logout}" method="POST">
+                    <button type="submit" class="logout-button">Logout</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</nav>
+
+<br>
+
+<!-- Main -->
+<div class="content-wrap">
+    <div class="welcome-section">
+
+        <h2>Welcome to Leader Page!</h2>
+
+        <!-- Weather Info -->
+        <div th:if="${weather != null}" class="card my-4">
+            <div class="card-body">
+                <h5 class="card-title">Current Weather</h5>
+                <p class="card-text"><strong><<span th:text="${weather.temperature} + '°C'"></span></strong></p>
+                <p class="card-text"><strong><span th:text="${weather.description}"></span></strong></p>
+                <div class="text-center">
+                    <img th:src="${weather.iconUrl}" alt="Weather Icon" class="img-fluid"/>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="user-info">
+           <span> <a th:href="@{/users/showCreateUserPage}">CREAT USER<br></a></span>
+            <br>
+            <span> <a th:href="@{/users}">LIST USER<br></a></span>
+            <br>
+            <span > <a th:href="@{/books}">BOOK SYSTEM<br></a></span>
+        </div>
+
+    </div>
+</div>
+
+<!-- Footer -->
+<footer>
+    <div class="container">
+        <p>&copy; 2023 Lisi's Library. All rights reserved.</p>
+    </div>
+</footer>
+
+<!-- Import Bootstrap -->
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
+</body>
+</html>

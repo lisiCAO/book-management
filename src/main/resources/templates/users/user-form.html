@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"  xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+  <meta charset="UTF-8">
+  <title>Create User</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+  <link rel="stylesheet" th:href="@{/css/custom.css}">
+</head>
+<body>
+
+<!-- Nav Bar -->
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <a class="navbar-brand" href="/">Lisi's Library</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarNav">
+    <div class="navbar-nav-container">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item active">
+          <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
+        </li>
+        <li class="nav-item" sec:authorize="hasRole('MANAGER')">
+          <a class="nav-link" th:href="@{/leaders}">Leadership Meeting</a>
+        </li>
+        <li class="nav-item" sec:authorize="hasRole('ADMIN')">
+          <a class="nav-link" th:href="@{/books}">Admin Panel</a>
+        </li>
+      </ul>
+      <div class="logout-button-container">
+        <form action="#" th:action="@{/logout}" method="POST">
+          <button type="submit" class="logout-button">Logout</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<!-- Main -->
+<div class="content-wrap">
+  <div class="container">
+
+    <h2>Create New User</h2>
+
+    <form action="#" th:action="@{/users/create}" th:object="${user}" th:method="POST">
+
+      <!-- Username -->
+      <div class="form-group">
+        <label for="username">Username:</label>
+        <input type="text" class="form-control" id="username" th:field="*{username}" required>
+        <span th:if="${#fields.hasErrors('username')}" th:errors="*{username}" class="text-danger"></span>
+      </div>
+
+      <!-- Password -->
+      <div class="form-group">
+        <label for="password">Password:</label>
+        <input type="password" class="form-control" id="password" th:field="*{password}" required>
+        <span th:if="${#fields.hasErrors('password')}" th:errors="*{password}" class="text-danger"></span>
+      </div>
+
+      <!-- Role Selection -->
+      <div class="form-group">
+        <label for="role">Role:</label>
+        <select class="form-control" id="role" name="role">
+          <option value="ROLE_ADMIN">Admin</option>
+          <option value="ROLE_EMPLOYEE">Employee</option>
+          <option value="ROLE_MANAGER">Manager</option>
+        </select>
+      </div>
+
+      <!-- Submit Button -->
+      <button type="submit" class="btn btn-primary">Create User</button>
+      <hr>
+
+    </form>
+  </div>
+</div>
+
+<!-- Footer -->
+<footer>
+  <div class="container">
+    <p>&copy; 2023 Lisi's Library. All rights reserved.</p>
+  </div>
+</footer>
+
+<!-- Import Bootstrap JS -->
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
+</body>
+</html>

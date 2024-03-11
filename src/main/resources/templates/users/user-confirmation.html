@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>User Created Confirmation</title>
+
+    <!-- Automatically redirect to leader page -->
+    <meta http-equiv="refresh" content="5;url='/leaders'">
+</head>
+
+<body>
+
+<p>The user is confirmed: <span th:text="${user.username + ' ' + role}"></span></p>
+
+</body>
+</html>

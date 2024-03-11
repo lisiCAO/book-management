@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+  <title>Error</title>
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+  <!-- Automatically redirect to previous page -->
+  <meta http-equiv="refresh" th:content="${redirectUrl != null} ?('6;url=' + ${redirectUrl}):'6;url=/'">
+</head>
+<body>
+
+<div class="container">
+
+  <h1>Error Occurred</h1>
+
+  <!-- Error message -->
+  <div class="alert alert-danger" th:text="${message}"></div>
+
+  <!-- Link to previous page -->
+  <a th:href="${returnUrl}" th:if="${returnUrl != null}">Go Back</a>
+
+  <!-- Home Page -->
+  <a href="/" th:if="${returnUrl == null}">Go Back Home</a>
+</div>
+
+<!-- Bootstrap JS -->
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+</body>
+</html>
